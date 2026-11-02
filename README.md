@@ -15,8 +15,8 @@ Pipeline (`topofix.refine`):
 
 | Setting | Targets | R | angle | p_min | k |
 |---|---|---|---|---|---|
-| `LOOP_PAPER` (ours) | other components and the tip's own piece | 50 | 20 | 0.5 | 8 |
-| `CROSS_COMP` (baseline) | other components only | 30 | 20 | 0.2 | – |
+| `LOOP_PAPER` (loop bridging) | other components and the tip's own piece | 50 | 20 | 0.5 | 8 |
+| `CROSS_COMP` (cross-component bridging) | other components only | 30 | 20 | 0.2 | – |
 
 `k`: an own-piece target is used only if the path to it along the skeleton is at least `k` × (and at least 30 px
 more than) the straight distance, so a vessel is not joined to itself where it simply bends.
@@ -27,7 +27,7 @@ more than) the straight distance, so a vessel is not joined to itself where it s
 pip install -r requirements.txt
 ```
 
-Python 3.10 or newer. `nnunetv2` is needed only for `scripts/train_predict.py`.
+Tested with Python 3.14. `nnunetv2` is needed only for `scripts/train_predict.py`.
 
 ## Demo
 
@@ -63,7 +63,7 @@ python scripts/train_predict.py predict --images test/images --gt test/masks --w
 single-image models, train one model per annotated image (separate `--work` or `--dataset-id`) and predict each
 into its own folder.
 
-The paper trained with `nnUNetTrainer_50epochs`, the `2d` configuration and fold `all`, on the first image channel.
+The paper trained with `nnUNetTrainer_50epochs`, the `2d` configuration and the first image channel. The full-data model used fold `all`; the paper's single-image models were folds of one dataset with custom splits, so per-image training here gives close but not identical results.
 
 ## Metrics
 
