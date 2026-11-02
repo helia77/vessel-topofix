@@ -23,9 +23,10 @@ def bridges(skel, prob, setting):
 def refine(mask, prob, r, setting=LOOP_PAPER):
     """Closing with disk(r), cleaning, bridging on the pruned Lee skeleton, painting.
 
-    Returns (refined mask, bridges). The paper uses r 2 (full data) and r 3 (single image).
-    """
+    Returns (refined mask, bridges); setting None skips bridging. The paper uses r 2 (full data), r 3 (single image)."""
     clean = clean_mask(closing(np.asarray(mask) > 0, disk(r)), MIN_AREA)
+    if setting is None:
+        return clean, []
     skel = prune_spurs(skeletonize_mask(clean), MIN_SPUR)
     bs = bridges(skel, prob, setting)
     return paint_bridges(clean, skel, bs), bs
