@@ -6,3 +6,5 @@ networkx>=3.0
 # Betti matching error (third_party/BettiMatching.py)
 torch>=2.0
 matplotlib>=3.8
+# nnU-Net training and prediction (scripts/train_predict.py only)
+nnunetv2>=2.5
