@@ -33,8 +33,7 @@ def cldice(pred, gt):
 def boundary_iou(pred, gt, d=2):
     """Boundary IoU (Cheng et al., CVPR 2021): band = mask minus mask eroded d times by a 3 x 3 square.
 
-    The crop edge does not count as boundary. Returns 1.0 if both bands are empty.
-    """
+    The crop edge does not count as boundary. Returns 1.0 if both bands are empty."""
     band = lambda M: (M > 0) & ~binary_erosion(M > 0, np.ones((3, 3)), iterations=d, border_value=1)
     P, G = band(np.asarray(pred)), band(np.asarray(gt))
     union = (P | G).sum()
@@ -49,8 +48,7 @@ def _contour(M):
 def assd(pred, gt, px=1.0):
     """Average symmetric surface distance between the two contours, times the pixel size px.
 
-    nan if either contour is empty.
-    """
+    nan if either contour is empty."""
     P, G = _contour(np.asarray(pred) > 0), _contour(np.asarray(gt) > 0)
     if not (P.any() and G.any()):
         return float("nan")
@@ -92,8 +90,7 @@ def _betti_module():
 def betti_matching(pred, gt):
     """Betti matching error (Stucki et al., ICML 2023): unmatched features per dimension.
 
-    Superlevel filtration, T-construction (foreground 8-, background 4-connected), non-relative.
-    """
+    Superlevel filtration, T-construction (foreground 8-, background 4-connected), non-relative."""
     R = _betti_module().BettiMatching(np.asarray(pred, float), np.asarray(gt, float), relative=False,
                                       filtration="superlevel", construction="T")
     extra = [len(R.unmatched_0[d]) for d in (0, 1)]
@@ -112,8 +109,7 @@ def ends_junctions(M, min_spur=5):
 def bridges_correct(bridges, gt, tol=2):
     """Per bridge, True if both ends are within tol px of one GT component and the path between
 
-    them inside the GT mask is at most 2 x the bridge length (no shortcut between two branches).
-    """
+    them inside the GT mask is at most 2 x the bridge length (no shortcut between two branches)."""
     gt = np.asarray(gt) > 0
     lab = label(gt, connectivity=2)
     d, (ir, ic) = distance_transform_edt(~gt, return_indices=True)

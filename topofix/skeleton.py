@@ -38,8 +38,7 @@ def _edge_type(G, u, v):
 def _build_graph(skel):
     """Skan branches as a MultiGraph: nodes with 'pos', edges with 'length' and 'type'.
 
-    A MultiGraph keeps both arcs of a small loop between the same two junctions.
-    """
+    A MultiGraph keeps both arcs of a small loop between the same two junctions."""
     G = nx.MultiGraph()
     if skel.sum() == 0:
         return G
@@ -81,8 +80,7 @@ def _merge_degree2(G):
 def skeleton_to_graph(skel, min_spur=0):
     """Skeleton graph; with min_spur > 0, tip-junction branches shorter than min_spur are removed.
 
-    Junction-junction branches are never removed, so no connectivity is cut.
-    """
+    Junction-junction branches are never removed, so no connectivity is cut."""
     G = _build_graph(skel)
     if min_spur <= 0 or G.number_of_edges() == 0:
         return G

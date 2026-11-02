@@ -76,8 +76,7 @@ def _along_skeleton(skel, start):
 def _tip_candidates(skel, R, max_angle, border_margin, allow_same, same_ratio):
     """Yield (tip, {component: (dist, nearest pixel)}) for skeleton pixels within R px and the angle cone.
 
-    Own-component pixels count only with allow_same, and only if far enough along the skeleton.
-    """
+    Own-component pixels count only with allow_same, and only if far enough along the skeleton."""
     lab = label(skel, connectivity=2)
     G = skeleton_to_graph(skel, min_spur=MIN_SPUR)
     endpoints = [d["pos"] for n, d in G.nodes(data=True) if G.degree(n) == 1]
@@ -123,8 +122,7 @@ def _tip_candidates(skel, R, max_angle, border_margin, allow_same, same_ratio):
 def find_path_bridges(skel, prob, R, max_angle, p_min, allow_same=False, same_ratio=2, border_margin=3):
     """Per tip, minimal paths on 1 - prob to each candidate; the cheapest with mean prob >= p_min is kept.
 
-    Returns a list of paths, each a list of (row, col) from tip to target; A->B and B->A kept once.
-    """
+    Returns a list of paths, each a list of (row, col) from tip to target; A->B and B->A kept once."""
     skel = np.asarray(skel) > 0
     if not skel.any():
         return []

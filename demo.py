@@ -1,7 +1,6 @@
 """Synthetic ladder demo: cross-component vs loop bridging on a mask with broken rungs and a broken vessel.
 
-Run from the repo root:  python demo.py [out.png]   (default demo.png)
-"""
+Run from the repo root:  python demo.py [out.png]   (default demo.png)"""
 import sys
 
 import matplotlib
